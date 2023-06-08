@@ -1,8 +1,0 @@
-{
-    "name": "",
-    "description": "",
-    "type": "",
-    "license": "",
-    "minimum-stability": "stable",
-    "require": {}
-}
