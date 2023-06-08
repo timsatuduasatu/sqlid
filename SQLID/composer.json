@@ -1,0 +1,19 @@
+{
+    "name": "satuduasatu/sqlid",
+    "description": "SQL Injection Detector using Regex and Aho-Corasick algorithm for preventing SQL Injection attack.",
+    "type": "package",
+    "license": "Institut Teknologi Del",
+    "autoload": {
+        "psr-4": {
+            "Satuduasatu\\Sqlid\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "timsatuduasatu",
+            "email": "timsatuduasatu@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
