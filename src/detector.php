@@ -152,8 +152,9 @@ class Detector {
             // Potential SQL injection detected
             // Take necessary actions, such as logging or blocking the request
             $queryParams = http_build_query($sqlInjectionParams);
-            header("Location: /sqlid/src/result/injection_result.php?$queryParams");
+            header("Location: /../vendor/satuduasatu/sqlid/src/result/injection_result.php?$queryParams");
 
+     
             // Menampilkan HTTP response
             $currentDateTime = date('Y-m-d_H-i-s');
             $responseLog = "HTTP Response:" . PHP_EOL;
@@ -171,9 +172,9 @@ class Detector {
                 // Potential SQL injection detected
                 // Take necessary actions, such as logging or blocking the request
                 $queryParams = http_build_query($sqlInjectionParams2);
-                header("Location: /sqlid/src/result/injection_result.php?$queryParams");
+                header("Location: /../vendor/satuduasatu/sqlid/src/result/injection_result.php?$queryParams");
 
-                // Menampilkan HTTP response
+                     // Menampilkan HTTP response
                 $currentDateTime = date('Y-m-d_H-i-s');
                 $responseLog = "HTTP Response:" . PHP_EOL;
                 $responseLog .= "Status Code: 400" . PHP_EOL;
