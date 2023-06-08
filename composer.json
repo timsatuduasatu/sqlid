@@ -14,6 +14,6 @@
             "email": "timsatuduasatu@gmail.com"
         }
     ],
-    "minimum-stability": "*",
+    "minimum-stability": "dev",
     "require": {}
 }
