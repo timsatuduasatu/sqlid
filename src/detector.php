@@ -209,8 +209,6 @@ class Detector {
 
     // Function to perform the injection detection on all inputs
     function detectAllInjections() {
-        $input = array_merge($_POST, $_GET);
-        $this->performInjectionDetection($input);
 
         $currentDateTime = date('Y-m-d_H-i-s');
         // Menampilkan HTTP request
@@ -221,6 +219,8 @@ class Detector {
         $requestLog .= "Body: " . file_get_contents('php://input') . PHP_EOL;
         file_put_contents(__DIR__ . "/logs/log-Request-{$currentDateTime}.txt", $requestLog, FILE_APPEND);
     
+        $input = array_merge($_POST, $_GET);
+        $this->performInjectionDetection($input);
     }
 }
 
