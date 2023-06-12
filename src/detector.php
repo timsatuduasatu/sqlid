@@ -14,6 +14,37 @@ class TrieNode {
 }
 
 class Detector {
+    
+    
+    function isEncoded($input) {
+        if (preg_match('/%[0-9A-Fa-f]{2}/', $input)) {
+    
+        // Algorithm: Detect URL encoding
+            $decodedInput = urldecode($input);
+            if ($decodedInput !== false) {
+                return [true, $decodedInput];
+            }
+        }
+    
+        // Algorithm: Detect Base64 encoding
+        $decodedInput = base64_decode($input, true);
+        if ($decodedInput !== false) {
+            return [true, $decodedInput];
+        }
+    
+        // Algorithm: Detect Hexadecimal encoding
+        $decodedInput = hex2bin($input);
+        if ($decodedInput !== false) {
+            return [true, $decodedInput];
+        }
+    
+        // Algorithm: Detect other custom encoding techniques
+        // Add your custom encoding detection logic here
+    
+        return [false, $input];
+        }
+    
+    
     // Function to detect potential SQL injection using regex
     function detectSqlInjection($params) {
         // Read the text file into an array
@@ -31,10 +62,37 @@ class Detector {
         $injectedParams = [];
 
         foreach ($params as $name => $value) {
+            
+            list($encoded, $decodedInput) = $this->isEncoded($value);
+
+            if ($encoded) {
+                
+            $currentDate = date('Y-m-d');
+            $currentDateTime = date('Y-m-d_H-i-s');
+            $responseLog = "Detector Response:" . PHP_EOL;
+            $responseLog .= "Status Code: 200" . PHP_EOL;
+            $responseLog .= "Detected at:'$currentDateTime' " . PHP_EOL;
+            $responseLog .= "Content-Type: text/plain" . PHP_EOL;
+            $responseLog .= "Body: Encoded, Nilai input dari '$value' diencode: " . $decodedInput . PHP_EOL;
+            file_put_contents(__DIR__ . "/logs/log-Detector-{$currentDate}.txt", $responseLog, FILE_APPEND);
+            
+            } else {
+                   
+            $currentDate = date('Y-m-d');
+            $currentDateTime = date('Y-m-d_H-i-s');
+            $responseLog = "Detector Response:" . PHP_EOL;
+            $responseLog .= "Status Code: 200" . PHP_EOL;
+            $responseLog .= "Detected at:'$currentDateTime' " . PHP_EOL;
+            $responseLog .= "Content-Type: text/plain" . PHP_EOL;
+            $responseLog .= "Body: Decoded, Nilai input dari '$value' tetap: " . $decodedInput . PHP_EOL;
+            file_put_contents(__DIR__ . "/logs/log-Detector-{$currentDate}.txt", $responseLog, FILE_APPEND);
+            
+            }
+
             foreach ($injectionPatterns as $pattern) {
-                if (preg_match($pattern, $value)) {
+                if (preg_match($pattern, $decodedInput)) {
                     // SQL injection pattern detected
-                    $injectedParams[$name] = $value;
+                    $injectedParams[$name] = $decodedInput;
                     break;
                 } else {
                     // Handle other cases here
@@ -133,11 +191,38 @@ class Detector {
         $injectedParams = [];
 
         foreach ($inputs as $name => $value) {
-            $matches = $this->ahoCorasick($value, $patterns);
+
+            list($encoded, $decodedInput) = $this->isEncoded($value);
+
+            if ($encoded) {
+                
+            $currentDate = date('Y-m-d');
+            $currentDateTime = date('Y-m-d_H-i-s');
+            $responseLog = "Detector Response:" . PHP_EOL;
+            $responseLog .= "Status Code: 200" . PHP_EOL;
+            $responseLog .= "Detected at:'$currentDateTime' " . PHP_EOL;
+            $responseLog .= "Content-Type: text/plain" . PHP_EOL;
+            $responseLog .= "Body: Encoded, Nilai input dari '$value' diencode: " . $decodedInput . PHP_EOL;
+            file_put_contents(__DIR__ . "/logs/log-Detector-{$currentDate}.txt", $responseLog, FILE_APPEND);
+            
+            } else {
+                   
+            $currentDate = date('Y-m-d');
+            $currentDateTime = date('Y-m-d_H-i-s');
+            $responseLog = "Detector Response:" . PHP_EOL;
+            $responseLog .= "Status Code: 200" . PHP_EOL;
+            $responseLog .= "Detected at:'$currentDateTime' " . PHP_EOL;
+            $responseLog .= "Content-Type: text/plain" . PHP_EOL;
+            $responseLog .= "Body: Decoded, Nilai input dari '$value' tetap: " . $decodedInput . PHP_EOL;
+            file_put_contents(__DIR__ . "/logs/log-Detector-{$currentDate}.txt", $responseLog, FILE_APPEND);
+            
+            }
+
+            $matches = $this->ahoCorasick($decodedInput, $patterns);
 
             if (!empty($matches)) {
                 // SQL injection pattern detected
-                $injectedParams[$name] = $value;
+                $injectedParams[$name] = $decodedInput;
             }
         }
 
@@ -146,6 +231,10 @@ class Detector {
 
     // Function to perform the injection detection
     function performInjectionDetection($input) {
+  
+
+
+
         $sqlInjectionParams = $this->detectSqlInjection($input);
 
         if (!empty($sqlInjectionParams)) {
@@ -154,7 +243,6 @@ class Detector {
             $queryParams = http_build_query($sqlInjectionParams);
             header("Location: /../vendor/satuduasatu/sqlid/src/result/injection_result.php?$queryParams");
 
-     
             // Menampilkan HTTP response
             $currentDateTime = date('Y-m-d_H-i-s');
             $responseLog = "HTTP Response:" . PHP_EOL;
@@ -174,7 +262,7 @@ class Detector {
                 $queryParams = http_build_query($sqlInjectionParams2);
                 header("Location: /../vendor/satuduasatu/sqlid/src/result/injection_result.php?$queryParams");
 
-                     // Menampilkan HTTP response
+                // Menampilkan HTTP response
                 $currentDateTime = date('Y-m-d_H-i-s');
                 $responseLog = "HTTP Response:" . PHP_EOL;
                 $responseLog .= "Status Code: 400" . PHP_EOL;
