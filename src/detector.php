@@ -31,8 +31,11 @@ class Detector {
         if ($decodedInput !== false) {
             return [true, $decodedInput];
         }
-    
+        
         // Algorithm: Detect Hexadecimal encoding
+        if (strlen($input) % 2 !== 0) {
+            return [false, $input];
+        }
         $decodedInput = hex2bin($input);
         if ($decodedInput !== false) {
             return [true, $decodedInput];
@@ -232,9 +235,6 @@ class Detector {
     // Function to perform the injection detection
     function performInjectionDetection($input) {
   
-
-
-
         $sqlInjectionParams = $this->detectSqlInjection($input);
 
         if (!empty($sqlInjectionParams)) {
