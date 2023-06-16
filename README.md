@@ -1,7 +1,7 @@
 # SQLID-URAC 
 ## (SQL Injection Detector using Regex & Aho-Corasick)
 SQL Injection Detector using Regex and Aho-Corasick algorithm for preventing SQL Injection attack.
-Jika Membutuhkan web Vuln Dummy, berkunjung ke link repository berikut : https://github.com/timsatuduasatu/dummywebvuln 
+Kami juga menyediakan web Vuln jika Membutuhkan web Vuln Dummy, dapat diunduh pada repository berikut : https://github.com/timsatuduasatu/dummywebvuln 
 ## Daftar Isi
 
 - [Instalasi](#instalasi)
