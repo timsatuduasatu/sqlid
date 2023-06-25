@@ -71,7 +71,7 @@ class Detector {
             list($encoded, $decodedInput) = $this->isEncoded($value);
 
             if ($encoded) {
-                
+                http_response_code(200); 
             $currentDate = date('Y-m-d');
             $currentDateTime = date('Y-m-d_H-i-s');
             $responseLog = "Detector Response:" . PHP_EOL;
@@ -82,7 +82,7 @@ class Detector {
             file_put_contents(__DIR__ . "/logs/log-Detector-{$currentDate}.txt", $responseLog, FILE_APPEND);
             
             } else {
-                   
+                http_response_code(200); 
             $currentDate = date('Y-m-d');
             $currentDateTime = date('Y-m-d_H-i-s');
             $responseLog = "Detector Response:" . PHP_EOL;
@@ -209,7 +209,7 @@ class Detector {
             list($encoded, $decodedInput) = $this->isEncoded($value);
 
             if ($encoded) {
-                
+                http_response_code(200); 
             $currentDate = date('Y-m-d');
             $currentDateTime = date('Y-m-d_H-i-s');
             $responseLog = "Detector Response:" . PHP_EOL;
@@ -220,7 +220,7 @@ class Detector {
             file_put_contents(__DIR__ . "/logs/log-Detector-{$currentDate}.txt", $responseLog, FILE_APPEND);
             
             } else {
-                   
+                http_response_code(200); 
             $currentDate = date('Y-m-d');
             $currentDateTime = date('Y-m-d_H-i-s');
             $responseLog = "Detector Response:" . PHP_EOL;
@@ -276,7 +276,7 @@ class Detector {
             // Take necessary actions, such as logging or blocking the request
             //$queryParams = http_build_query($sqlInjectionParams);
             //header("Location: /../vendor/satuduasatu/sqlid/src/result/injection_result.php?$queryParams");
-
+            http_response_code(400); 
             // Menampilkan HTTP response
             $currentDateTime = date('Y-m-d_H-i-s');
             $responseLog = "HTTP Response:" . PHP_EOL;
@@ -304,6 +304,7 @@ class Detector {
                     echo 'window.location = "/../vendor/satuduasatu/sqlid/src/result/injection_result.php?sqlInjectionParams=' . urlencode($queryParams) . '&sqlInjectionPatterns=' . urlencode($patternParams). '";';
                     echo '</script>';
                 // Menampilkan HTTP response
+                http_response_code(400); 
                 $currentDateTime = date('Y-m-d_H-i-s');
                 $responseLog = "HTTP Response:" . PHP_EOL;
                 $responseLog .= "Status Code: 400" . PHP_EOL;
@@ -315,6 +316,7 @@ class Detector {
                 exit;}
 
             } else if (empty($sqlInjectionParams) && empty($sqlInjectionParams2)) {
+                http_response_code(200); 
                 $currentDateTime = date('Y-m-d_H-i-s');
                 $responseLog = "HTTP Response:" . PHP_EOL;
                 $responseLog .= "Status Code: 200" . PHP_EOL;
@@ -324,6 +326,7 @@ class Detector {
                 file_put_contents(__DIR__ . "/logs/log-Response-{$currentDateTime}.txt", $responseLog, FILE_APPEND);
                 
             } else {
+                http_response_code(500); 
                 $currentDateTime = date('Y-m-d_H-i-s');
                 $responseLog = "HTTP Response:" . PHP_EOL;
                 $responseLog .= "Status Code: 500" . PHP_EOL;
@@ -339,7 +342,7 @@ class Detector {
 
     // Function to perform the injection detection on all inputs
     function detectAllInjections() {
-
+         
         $currentDateTime = date('Y-m-d_H-i-s');
         // Menampilkan HTTP request
         $requestLog = "HTTP Request:" . PHP_EOL;
